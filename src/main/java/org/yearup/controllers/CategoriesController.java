@@ -30,6 +30,7 @@ public class CategoriesController {
 //constructor goes here b/c of inversion of control dependencies - without constructor program doesn't know what to do with what
 
     // create an Autowired controller to inject the categoryDao and ProductDao
+    @Autowired
 
     // add the appropriate annotation for a get action
     @GetMapping()
@@ -37,14 +38,14 @@ public class CategoriesController {
     {
         // find and return all categories
 
-        return categoryDao.getAllCategories();
+        return categoryDao.getAllCategories(); //12/16
     }
 
     // add the appropriate annotation for a get action
     public Category getById(@PathVariable int id)
     {
         // get the category by id
-        return null;
+        return categoryDao.getById(id); //12/16
     }
 
     // the url to return all products in category 1 would look like this
