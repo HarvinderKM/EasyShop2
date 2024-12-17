@@ -1,8 +1,10 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
 import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
@@ -52,18 +54,25 @@ public class CategoriesController {
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId)
-    {
+    public List<Product> getProductsById(@PathVariable int categoryId) {
         // get a list of product by categoryId
-        return categoryDao.getById();
-    }
+        try {
+            var products = productDao.listByCategoryId(categoryId);
 
+            return products;
+        }
+catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+
+        }
+    }
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
     public Category addCategory(@RequestBody Category category)
     {
         // insert the category
-        return categoryDao.getById();
+        return categoryDao.create(category);
     }
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
@@ -71,7 +80,7 @@ public class CategoriesController {
     public void updateCategory(@PathVariable int id, @RequestBody Category category)
     {
         // update the category by id
-        categoryDao.update();
+        categoryDao.update(id,category);
     }
 
 
@@ -80,6 +89,6 @@ public class CategoriesController {
     public void deleteCategory(@PathVariable int id)
     {
         // delete the category by id
-        categoryDao.delete();
+        categoryDao.delete(id);
     }
 }
