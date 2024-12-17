@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/categories") //makes url slash /categories
 // add annotation to allow cross site origin requests  - LINE 18
 @CrossOrigin //makes front end work with back end !!!!!yen
+
 public class CategoriesController {
     //autowire - LINE 21
     @Autowired
@@ -54,7 +55,7 @@ public class CategoriesController {
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
         // get a list of product by categoryId
-        return null;
+        return categoryDao.getById();
     }
 
     // add annotation to call this method for a POST action
@@ -62,7 +63,7 @@ public class CategoriesController {
     public Category addCategory(@RequestBody Category category)
     {
         // insert the category
-        return null;
+        return categoryDao.getById();
     }
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
@@ -70,6 +71,7 @@ public class CategoriesController {
     public void updateCategory(@PathVariable int id, @RequestBody Category category)
     {
         // update the category by id
+        categoryDao.update();
     }
 
 
@@ -78,8 +80,6 @@ public class CategoriesController {
     public void deleteCategory(@PathVariable int id)
     {
         // delete the category by id
+        categoryDao.delete();
     }
 }
-
-
-//TEST
