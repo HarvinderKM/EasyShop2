@@ -5,7 +5,10 @@ import org.yearup.models.Profile;
 import org.yearup.data.ProfileDao;
 
 import javax.sql.DataSource;
+import java.security.Principal;
 import java.sql.*;
+
+import static org.yearup.data.mysql.MySqlProductDao.mapRow;
 
 @Component
 public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
@@ -44,4 +47,53 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
         }
     }
 
+    @Override
+    public Profile getById(int userId) {
+        String sql = "SELECT * FROM profiles WHERE user_id = ?";
+        try (Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+
+            ResultSet row = statement.executeQuery();
+
+            if (row.next())
+            {
+                return mapRow(row);
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+// get category by id
+        return null;
+    }
+    private Profile mapRow(ResultSet row) throws SQLException
+    {
+        int userId = row.getInt("user_id");
+        String first_name = row.getString("first_name");
+        String last_name = row.getString("last_name");
+        String phone = row.getString("phone");
+        String email = row.getString("email");
+        String address = row.getString("address");
+        String city = row.getString("city");
+        String state = row.getString("state");
+        String zip = row.getString("zip");
+
+        return new Profile()
+        {{
+            setUserId(userId);
+            setFirstName(first_name);
+            setLastName(last_name);
+            setPhone(phone);
+            setEmail(email);
+            setAddress(address);
+            setCity(city);
+            setState(state);
+            setZip(zip);
+
+        }};
+    }
 }

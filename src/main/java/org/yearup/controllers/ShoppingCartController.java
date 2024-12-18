@@ -1,6 +1,6 @@
 package org.yearup.controllers;
-
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ProductDao;
@@ -9,13 +9,13 @@ import org.yearup.data.UserDao;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.ShoppingCartItem;
 import org.yearup.models.User;
-
 import java.security.Principal;
 
-// convert this class to a REST controller
-// only logged in users should have access to these actions
+// only logged in users should have access to these actions ?
 @RestController
-@RequestMapping
+@RequestMapping("cart")
+@PreAuthorize("isAuthenticated()")
+@CrossOrigin
 public class ShoppingCartController
 {
     // a shopping cart requires
@@ -43,7 +43,8 @@ public class ShoppingCartController
             int userId = user.getId();
 
             // use the shoppingcartDao to get all items in the cart and return the cart
-            return shoppingCartDao.getByUserId(principal);
+          //  return shoppingCartDao.getByUserId();
+            return null;
         }
         catch(Exception e)
         {
@@ -61,7 +62,7 @@ public class ShoppingCartController
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
 
-            shoppingCartDao.getByUserId(userId,productId);
+          //  shoppingCartDao.getByUserId(userId,productId);
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "This product cannot be added to Cart");
         }
@@ -72,13 +73,13 @@ public class ShoppingCartController
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
     @PutMapping
-    public void updateProductCart (@PathVariable int productID, @RequestMapping ShoppingCartItem, Principal principal){
+    public void updateProductCart (@PathVariable int productID,  Principal principal){
         try{
             String userName = principal.getName();
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
 
-            shoppingCartDao.getByUserId(userId,productID);
+         //   shoppingCartDao.getByUserId(userId,productID);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Product failed to update");
         }
@@ -96,10 +97,12 @@ public class ShoppingCartController
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
 
-            shoppingCartDao.clearcCart(userId);
-        } catch (Expection e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to Clear cart");
+      //      shoppingCartDao.clearcCart(userId);
+     //   } catch (Expection e) {
+     //       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to Clear cart");
+    //    }
+    } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-    }
 
-}
+    }}
