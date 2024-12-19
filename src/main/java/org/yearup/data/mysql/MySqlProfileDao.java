@@ -70,6 +70,42 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao
 // get category by id
         return null;
     }
+
+    @Override
+    public void update(int userId, Profile profile) {
+        String sql = "UPDATE profiles" +
+                " SET first_name = ? " +
+                "   , last_name = ? " +
+                "   , phone = ? " +
+                "   , email = ? " +
+                "   , address = ? " +
+                "   , city = ? " +
+                "   , state = ? " +
+                "   , zip = ? " +
+                " WHERE user_id = ?;";
+
+        try (Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, profile.getFirstName());
+            statement.setString(2, profile.getLastName());
+            statement.setString(3, profile.getPhone());
+            statement.setString(4, profile.getEmail());
+            statement.setString(5, profile.getAddress());
+            statement.setString(6, profile.getCity());
+            statement.setString(7, profile.getState());
+            statement.setString(8, profile.getZip());
+            statement.setInt(9, userId);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     private Profile mapRow(ResultSet row) throws SQLException
     {
         int userId = row.getInt("user_id");
