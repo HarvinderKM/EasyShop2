@@ -24,6 +24,23 @@ Adding annotations into the categories controller was the first phase of the pro
 The following is the Products Controller Page: 
 ![Screenshot 2024-12-19 at 1.27.11 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.27.11%E2%80%AFPM.png)
 
+Laptop Bugs in Products Controller: 
+```Java
+    @PutMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void updateProduct(@PathVariable int id, @RequestBody Product product) // search
+    {
+        try
+        {
+            productDao.update(id, product); //fix bug #2 - changed create to update
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        }
+    }
+```
+
 
 ## Phase 4: User Profile 
 Used the ProfileDAO and MySQLProfileDao to be able to edit profile. 

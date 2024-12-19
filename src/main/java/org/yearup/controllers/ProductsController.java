@@ -1,5 +1,6 @@
 package org.yearup.controllers;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -67,7 +68,7 @@ public class ProductsController
     {
         try
         {
-            return productDao.create(product);
+            return productDao.create(product); //
         }
         catch(Exception ex)
         {
@@ -77,11 +78,11 @@ public class ProductsController
 
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateProduct(@PathVariable int id, @RequestBody Product product)
+    public void updateProduct(@PathVariable int id, @RequestBody Product product) // search
     {
         try
         {
-            productDao.create(product);
+            productDao.update(id, product); //fix bugs - updates product
         }
         catch(Exception ex)
         {
