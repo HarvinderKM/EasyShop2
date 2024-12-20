@@ -18,31 +18,39 @@ One of the Bugs fixed were changing one of the "Minimum's" to "Maximum" in the s
 
 ## Phase 1: Categories Controller 
 Adding annotations into the categories controller was the first phase of the project. 
-![Screenshot 2024-12-19 at 1.25.28 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.25.28%E2%80%AFPM.png)
+``` Java
+@RestController
+@RequestMapping("/categories") 
+@CrossOrigin 
 
+public class CategoriesController {
+    @Autowired
+    public CategoriesController(CategoryDao categoryDao, ProductDao productDao) {  //CREATED CONSTRUCTORS HERE
+        this.categoryDao = categoryDao;
+        this.productDao = productDao;
+    }
+
+    private CategoryDao categoryDao;
+    private ProductDao productDao;
+```
+###
 ## Phase 2: Fix Bugs 
 The following is a snippet of the Products Controller Page: 
 ```Java
 @RestController
 @RequestMapping("products")
 @CrossOrigin
-public class ProductsController
-{
+public class ProductsController {
     private ProductDao productDao;
-
     @Autowired
     public ProductsController(ProductDao productDao)
-    {
-        this.productDao = productDao;
-    }
-
+    {this.productDao = productDao;}
     @GetMapping("")
     @PreAuthorize("permitAll()")
     public List<Product> search(@RequestParam(name="cat", required = false) Integer categoryId,
                                 @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
                                 @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
-                                @RequestParam(name="color", required = false) String color
-                                )
+                                @RequestParam(name="color", required = false) String color)
     {
         try
         {
@@ -55,7 +63,7 @@ public class ProductsController
     }
 
 ```
-Laptop Bugs in Products Controller: 
+### Laptop Bugs in Products Controller: 
 ```Java
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
