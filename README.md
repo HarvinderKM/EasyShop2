@@ -21,9 +21,40 @@ Adding annotations into the categories controller was the first phase of the pro
 ![Screenshot 2024-12-19 at 1.25.28 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.25.28%E2%80%AFPM.png)
 
 ## Phase 2: Fix Bugs 
-The following is the Products Controller Page: 
-![Screenshot 2024-12-19 at 1.27.11 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.27.11%E2%80%AFPM.png)
+The following is a snippet of the Products Controller Page: 
+```Java
+@RestController
+@RequestMapping("products")
+@CrossOrigin
+public class ProductsController
+{
+    private ProductDao productDao;
 
+    @Autowired
+    public ProductsController(ProductDao productDao)
+    {
+        this.productDao = productDao;
+    }
+
+    @GetMapping("")
+    @PreAuthorize("permitAll()")
+    public List<Product> search(@RequestParam(name="cat", required = false) Integer categoryId,
+                                @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
+                                @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
+                                @RequestParam(name="color", required = false) String color
+                                )
+    {
+        try
+        {
+            return productDao.search(categoryId, minPrice, maxPrice, color);
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        }
+    }
+
+```
 Laptop Bugs in Products Controller: 
 ```Java
     @PutMapping("{id}")
