@@ -81,21 +81,23 @@ public class ProductsController {
     }
 
 ```
-### Laptop Bugs in Products Controller: 
+### Favorite/Interesting Code: 
 ```Java
-    @PutMapping("{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateProduct(@PathVariable int id, @RequestBody Product product) // search
-    {
-        try
-        {
-            productDao.update(id, product); //fix bug #2 - changed create to update
-        }
-        catch(Exception ex)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
-        }
-    }
+    private Category mapRow(ResultSet row) throws SQLException
+{
+    int categoryId = row.getInt("category_id");
+    String name = row.getString("name");
+    String description = row.getString("description");
+
+    Category category = new Category()
+    {{
+        setCategoryId(categoryId);
+        setName(name);
+        setDescription(description);
+    }};
+
+    return category;
+}
 ```
 
 
