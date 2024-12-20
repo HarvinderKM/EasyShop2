@@ -37,7 +37,23 @@ public class CategoriesController {
 ```
 ###
 ## Phase 2: Fix Bugs 
-The following is a snippet of the Products Controller Page: 
+Products Controller Page: The update was creating a product instead of updating. 
+```Java
+@PutMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void updateProduct(@PathVariable int id, @RequestBody Product product) // search
+    {
+        try
+        {
+            productDao.update(id, product); //fix bugs - updates product (changed create to update)
+        }
+        catch(Exception ex)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        }
+    }
+```
+###
 ```Java
 @RestController
 @RequestMapping("products")
