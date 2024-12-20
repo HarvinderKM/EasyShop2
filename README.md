@@ -1,4 +1,4 @@
-## CAPSTONE 3 - EasyShop E-Commerce 
+![Capstone_3__Easy_Shop (1).png](src/main/java/Capstone_3__Easy_Shop%20%281%29.png)
 ![Screenshot 2024-12-19 at 1.19.51 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.19.51%E2%80%AFPM.png)
 ### Project Overview:
 This capstone project is an e-commerce application for a company named **EasyShop**. I assumed the role of a backend developer to enhance an existing online store. 
@@ -15,7 +15,9 @@ This capstone project is an e-commerce application for a company named **EasySho
 ## Fixing Bugs:
 One of the Bugs fixed were changing one of the "Minimum's" to "Maximum" in the search bar.
 ![Screenshot 2024-12-19 at 1.20.37 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.20.37%E2%80%AFPM.png)
-
+###
+### Did this by changing the HTML in Visual Code Studio
+![Screenshot 2024-12-20 at 8.52.06 AM.png](src/main/java/Screenshot%202024-12-20%20at%208.52.06%E2%80%AFAM.png)
 ## Phase 1: Categories Controller 
 Adding annotations into the categories controller was the first phase of the project. 
 ``` Java

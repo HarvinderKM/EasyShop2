@@ -68,12 +68,12 @@ catch(Exception ex)
         }
     }
     // add annotation to call this method for a POST action
-    // add annotation to ensure that only an ADMIN can call this function
     @PostMapping
+    // add annotation to ensure that only an ADMIN can call this function
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category)
     {
-        // insert the category
+        // insert the category to return
         return categoryDao.create(category);
     }
 
@@ -90,7 +90,9 @@ catch(Exception ex)
 
 
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
+
     // add annotation to ensure that only an ADMIN can call this function
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable int id)
     {
         // delete the category by id
