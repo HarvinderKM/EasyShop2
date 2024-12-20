@@ -84,3 +84,6 @@ public class ProductsController {
 ## Phase 4: User Profile 
 Used the ProfileDAO and MySQLProfileDao to be able to edit profile. 
 ![Screenshot 2024-12-19 at 1.32.41 PM.png](src/main/java/Screenshot%202024-12-19%20at%201.32.41%E2%80%AFPM.png)
+
+### Thank you for Watching ! 
+#### Harvinder Kaur 
