@@ -13,7 +13,7 @@ public class MysqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     }
 
     @Override
-    public ShoppingCart getByUserId(int userId) {
+    public ShoppingCart getByUserId() {
         return null;
     }
 }

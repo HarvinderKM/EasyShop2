@@ -72,7 +72,6 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
     @Override
     public Category create(Category category) {
-        // create a new category
         String sql = "INSERT INTO categories(name, description) " +
                 " VALUES (?, ?);";
 
@@ -85,14 +84,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
             int rowsAffected = statement.executeUpdate();
 
             if (rowsAffected > 0) {
-                // Retrieve the generated keys
                 ResultSet generatedKeys = statement.getGeneratedKeys();
 
                 if (generatedKeys.next()) {
-                    // Retrieve the auto-incremented ID
                     int orderId = generatedKeys.getInt(1);
 
-                    // get the newly inserted category
                     return getById(orderId);
                 }
             }
