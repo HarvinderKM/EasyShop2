@@ -79,8 +79,9 @@ public class ProductsController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
-
 ```
+###  -Fixed Laptop item bug. 
+
 ### Favorite/Interesting Code: 
 ```Java
     private Category mapRow(ResultSet row) throws SQLException
